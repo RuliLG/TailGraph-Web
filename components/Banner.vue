@@ -5,6 +5,7 @@
         <div>
           <h1 class="font-bold text-white text-4xl leading-tight md:text-5xl xl:text-6xl" data-aos="fade-down">Branded social images using TailwindCSS</h1>
           <p class="text-xl text-teal-50 mt-4 md:text-2xl" data-aos="fade-up">Create your custom images for the Open Graph protocol using our free API.</p>
+          <a href="#try" class="inline-block mt-4 rounded-lg border-2 border-white py-3 px-8 font-semibold text-white w-full text-center md:w-auto hover:bg-white hover:text-teal-600 transition duration-150" data-aos="fade-up" data-aos-delay="300">Try it out</a>
         </div>
       </div>
       <div>
