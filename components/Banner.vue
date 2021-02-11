@@ -8,8 +8,8 @@
           <a href="#try" class="inline-block mt-4 rounded-lg border-2 border-white py-3 px-8 font-semibold text-white w-full text-center md:w-auto hover:bg-white hover:text-teal-600 transition duration-150" data-aos="fade-up" data-aos-delay="300">Try it out</a>
         </div>
       </div>
-      <div>
-        <TwitterFeed class="shadow-2xl max-w-xl mx-auto rounded-xl overflow-hidden lg:rounded-none" data-aos="fade-left">
+      <div class="p-2 md:p-0">
+        <TwitterFeed class="shadow-2xl max-w-xl mx-auto rounded-3xl overflow-hidden lg:rounded-none" data-aos="fade-left">
           <Tweet class="hidden md:block" image="https://avatars.dicebear.com/api/avataaars/johndoe.svg" name="WebDev" handle="@webdeveloper" text="<span class='text-teal-600'>@johndoe</span> At least you are using them! I got tired of designing a custom one for each post 🤪🤪" />
           <Tweet image="https://avatars.dicebear.com/api/avataaars/asdfg.svg" name="Daily Hero" handle="@tailgraph" text="Hey feed! Just found a new superb tool based on <span class='text-teal-600'>@tailwindcss</span>">
             <TwitterCard tabindex="-1" href="https://tailgraph.com/" title="Generate OG images using TailwindCSS with a free API" description="Create your custom images for the Open Graph protocol using our free API." />
