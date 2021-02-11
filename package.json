@@ -12,7 +12,8 @@
   "dependencies": {
     "@tailwindcss/aspect-ratio": "^0.2.0",
     "aos": "^3.0.0-beta.6",
-    "nuxt": "^2.0.0"
+    "nuxt": "^2.0.0",
+    "vue-select": "^3.11.2"
   },
   "devDependencies": {
     "@nuxtjs/tailwindcss": "^3.4.2",

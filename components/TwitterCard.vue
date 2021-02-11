@@ -1,7 +1,22 @@
 <template>
-    <a :href="href" class="block bg-white border border-gray-300 rounded-xl overflow-hidden">
+    <a :href="href" :target="newUrl ? '_blank' : undefined" :rel="newUrl ? 'noopener noreferrer' : undefined" class="block bg-white border border-gray-300 rounded-xl overflow-hidden">
         <div class="aspect-w-12 aspect-h-7 relative">
-            <div class="absolute left-0 top-0 w-full h-full flex justify-center items-center">
+            <div v-if="imageUrl" class="absolute left-0 top-0 w-full h-full flex items-center justify-center">
+                <img
+                    alt="Generated OG image"
+                    class="absolute left-0 top-0 w-full h-full object-cover object-center transition duration-50"
+                    :src="imageUrl"
+                    :class="{
+                        'opacity-0': loading,
+                        'opacity-100': !loading
+                    }"
+                    @load="didLoadImage"
+                >
+                <div v-if="loading">
+                    Loading...
+                </div>
+            </div>
+            <div v-else class="absolute left-0 top-0 w-full h-full flex justify-center items-center">
                 <div class="relative text-center px-4 lg:px-6">
                     <img src="~/assets/logo.svg" alt="TailGraph Logo" class="block object-contain object-center h-8 w-auto mx-auto md:h-12">
                     <div class="mt-4 md:mt-8" ref="wrapper">
@@ -33,6 +48,14 @@ export default {
         href: {
             type: String,
             required: true
+        },
+        imageUrl: {
+            type: String,
+            required: false
+        },
+        newUrl: {
+            type: String,
+            required: false
         }
     },
     data () {
@@ -47,13 +70,21 @@ export default {
                 chars: 0,
                 step: 2,
                 completed: false
-            }
+            },
+            loading: false
         }
     },
     mounted () {
-        this.interval = setInterval(() => {
-            this.updateText()
-        }, 70)
+        if (!this.imageUrl) {
+            this.interval = setInterval(() => {
+                this.updateText()
+            }, 70)
+        }
+    },
+    watch: {
+        imageUrl () {
+            this.loading = true
+        }
     },
     methods: {
         updateText () {
@@ -74,6 +105,9 @@ export default {
             } else {
                 clearInterval(this.interval)
             }
+        },
+        didLoadImage () {
+            this.loading = false
         }
     }
 }

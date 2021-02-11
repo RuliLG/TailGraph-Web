@@ -18,6 +18,9 @@ export default {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       { rel: 'preconnect', href: 'https://fonts.gstatic.com' },
       { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap' }
+    ],
+    script: [
+      { src: 'https://cdn.usefathom.com/script.js', 'data-site': 'FYNLBUNB', defer: true }
     ]
   },
   /*
@@ -33,6 +36,7 @@ export default {
    */
   plugins: [
     './plugins/aos.client.js',
+    './plugins/v-select.client.js',
   ],
   /*
    ** Nuxt.js modules
