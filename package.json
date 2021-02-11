@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@tailwindcss/aspect-ratio": "^0.2.0",
+    "aos": "^3.0.0-beta.6",
     "nuxt": "^2.0.0"
   },
   "devDependencies": {
