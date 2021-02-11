@@ -1,26 +1,24 @@
 <template>
-    <div class="bg-white border border-gray-300 rounded-xl overflow-hidden">
+    <a :href="href" class="block bg-white border border-gray-300 rounded-xl overflow-hidden">
         <div class="aspect-w-12 aspect-h-7 relative">
             <div class="absolute left-0 top-0 w-full h-full flex justify-center items-center">
                 <div class="relative text-center px-4 lg:px-6">
-                    <img src="https://tailwindcss.com/_next/static/media/tailwindcss-logotype.128b6e12eb85d013bc9f80a917f57efe.svg" alt="Tailwind CSS" class="block object-contain object-center h-8 w-auto mx-auto">
-                    <div class="mt-8" ref="wrapper">
-                        <p class="text-2xl text-black font-bold" ref="title"></p>
-                        <p class="text-base text-gray-700 mt-4" ref="description"></p>
+                    <img src="~/assets/logo.svg" alt="TailGraph Logo" class="block object-contain object-center h-8 w-auto mx-auto md:h-12">
+                    <div class="mt-4 md:mt-8" ref="wrapper">
+                        <p class="text-lg text-black font-bold md:text-2xl" ref="title"></p>
+                        <p class="hidden text-sm text-gray-700 mt-4 sm:block md:text-base" ref="description"></p>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="p-4">
-            <h1 class="text-sm">{{ title }}</h1>
+        <div class="p-4 border-t border-gray-300">
+            <p class="text-sm">{{ title }}</p>
             <p class="text-sm text-gray-500 mt-1">{{ description }}</p>
         </div>
-    </div>
+    </a>
 </template>
 
 <script>
-import Banner from '../lib/banner'
-
 export default {
     name: 'twitter-card',
     props: {
@@ -29,6 +27,10 @@ export default {
             required: true
         },
         description: {
+            type: String,
+            required: true
+        },
+        href: {
             type: String,
             required: true
         }
