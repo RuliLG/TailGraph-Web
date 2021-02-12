@@ -13,6 +13,10 @@
                     </div>
                 </div>
             </div>
+            <div v-if="url" class="mt-8">
+                <p class="text-lg text-teal-100 mt-4 md:text-xl">This is the URL we've generated for your image (yeah we know, it's pretty big 😁). Please, feel free to modify your title and text from the URL or, if you want, any TailwindCSS class! :-)</p>
+                <pre class="cursor-pointer mt-4 bg-white bg-opacity-90 border border-white rounded-xl monospace whitespace-pre-wrap p-8" @click="copyToClipboard(url)" v-html="formattedUrl"></pre>
+            </div>
         </div>
     </section>
 </template>
@@ -20,6 +24,7 @@
 <script>
 import UrlGenerator from './UrlGenerator'
 import TwitterCard from './TwitterCard'
+import copy from 'copy-to-clipboard'
 
 export default {
     name: 'try-out',
@@ -51,10 +56,58 @@ export default {
             url: null
         }
     },
+    computed: {
+        formattedUrl () {
+            if (!this.url) {
+                return null
+            }
+
+            const parts = this.url.split(/([\?&])/gi)
+            let formattedUrl = ''
+            let symbol = null
+            for (const part of parts) {
+                // Skip timestamp and refresh
+                if (part.startsWith('t=') || part.startsWith('refresh')) {
+                    symbol = null
+                    continue
+                }
+
+                if (part.startsWith('https://')) {
+                    formattedUrl += part
+                } else if (part.startsWith('title=') || part.startsWith('text=')) {
+                    // Highlight title and text
+                    formattedUrl += '\n\t<span class="font-bold text-teal-600">'
+                    if (symbol) {
+                        formattedUrl += symbol
+                        symbol = null
+                    }
+
+                    formattedUrl += part + '</span>'
+                } else if (part === '&' || part === '?') {
+                    symbol = part
+                } else {
+                    formattedUrl += '\n\t'
+                    if (symbol) {
+                        formattedUrl += symbol
+                        symbol = null
+                    }
+
+                    formattedUrl += part
+                }
+            }
+
+            return formattedUrl
+        }
+    },
     methods: {
         update (config, newUrl) {
             this.config = config
             this.url = newUrl
+        },
+        copyToClipboard (url) {
+            copy(url)
+            const event = new CustomEvent('toast', { detail: 'URL was copied to your clipboard.' })
+            document.dispatchEvent(event)
         }
     }
 }
