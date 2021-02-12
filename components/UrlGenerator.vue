@@ -8,7 +8,7 @@
                     'bg-opacity-90 rounded-xl hover:bg-opacity-100': !partial.open,
                     'rounded-t-xl': partial.open
                 }"
-                @click="partial.open = !partial.open"
+                @click="partial.open = true"
             >
                 {{ key }}
             </header>
@@ -60,7 +60,7 @@
                                         :options="tw.options"
                                         :select-on-key-codes="[188, 13, 32]"
                                         :close-on-select="false"
-                                        @input="didUpdateField(fieldName, $event)"
+                                        @input="didUpdateField(fieldName, $event, twKey)"
                                     >
                                         <template v-slot:option="option">
                                             <span v-if="tw.type === 'text'" :class="[option.label, tw.render].filter(x => !!x).join(' ')">Aa</span>
@@ -226,7 +226,7 @@ export default {
                 'Container': {
                     open: false,
                     fields: {
-                        footerTailwind: {
+                        containerTailwind: {
                             name: 'TailwindCSS',
                             help: 'Which CSS classes do you want to apply to the text container?',
                             type: 'tailwindcss'
@@ -256,6 +256,7 @@ export default {
                 }
             }
 
+            qs.push('t=' + Date.now())
             qs.push('refresh=1')
 
             return base + '?' + qs.join('&')
@@ -319,7 +320,7 @@ export default {
             }
         },
         colors () {
-            const colors = ['white', 'black']
+            const colors = ['transparent', 'white', 'black']
             for (const color of this.tailwind.colors) {
                 for (const shade of this.tailwind.colorShades) {
                     colors.push(`${color}-${shade}`)
@@ -340,7 +341,11 @@ export default {
 
             return value
         },
-        didUpdateField(fieldName, $event) {
+        didUpdateField(fieldName, $event, tailwindType = null) {
+            if (tailwindType != null) {
+                this.clearValuesFromTailwindType(tailwindType, fieldName)
+            }
+
             if ($event && $event.target) {
                 if ($event.target.type === 'checkbox') {
                     Vue.set(this.customConfig, fieldName, $event.target.checked)
@@ -349,10 +354,19 @@ export default {
                 }
                 this.notify()
             } else if (typeof $event === 'string') {
-                Vue.set(this.customConfig, fieldName, $event)
+                if (tailwindType !== null) {
+                    this.customConfig[fieldName].push($event)
+                } else {
+                    Vue.set(this.customConfig, fieldName, $event)
+                }
                 this.notify()
             } else if (Array.isArray($event)) {
-                Vue.set(this.customConfig, fieldName, $event)
+                if (tailwindType !== null) {
+                    this.customConfig[fieldName] = [...this.customConfig[fieldName], ...$event]
+                } else {
+                    Vue.set(this.customConfig, fieldName, $event)
+                }
+
                 this.notify()
             }
         },
@@ -366,6 +380,24 @@ export default {
             }
 
             return tailwind
+        },
+        clearValuesFromTailwindType (type, fieldName) {
+            let values
+            if (this.tailwindOptions[type].options) {
+                values = new Set(this.tailwindOptions[type].options)
+                this.customConfig[fieldName] = this.config[fieldName].filter(value => !values.has(value))
+            } else {
+                values = new Set()
+                for (const t in this.tailwindOptions) {
+                    if (this.tailwindOptions[t].options) {
+                        for (const option of this.tailwindOptions[t].options) {
+                            values.add(option)
+                        }
+                    }
+                }
+
+                this.customConfig[fieldName] = this.config[fieldName].filter(value => values.has(value))
+            }
         }
     }
 }
