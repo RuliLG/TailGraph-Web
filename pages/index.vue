@@ -1,5 +1,6 @@
 <template>
   <div>
+    <ToastController />
     <Banner />
     <section class="py-12 lg:py-24">
       <div class="container mx-auto px-4 text-center sm:px-6 lg:px-8">
@@ -31,13 +32,15 @@
 
 <script>
 import Banner from '../components/Banner'
+import ToastController from '../components/ToastController'
 import TryOut from '../components/TryOut'
 
 export default {
   name: 'index',
   components: {
     Banner,
-    TryOut
+    TryOut,
+    ToastController
   }
 }
 </script>
