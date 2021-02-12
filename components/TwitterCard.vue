@@ -76,9 +76,11 @@ export default {
     },
     mounted () {
         if (!this.imageUrl) {
-            this.interval = setInterval(() => {
-                this.updateText()
-            }, 70)
+            window.addEventListener('load', () => {
+                this.interval = setInterval(() => {
+                    this.updateText()
+                }, 70)
+            })
         }
     },
     watch: {
