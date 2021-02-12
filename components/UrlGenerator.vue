@@ -35,7 +35,7 @@
                     </div>
                     <div v-if="!['switch'].includes(field.type)">
                         <input
-                            v-if="!field.type || ['text', 'number'].includes(field.type)"
+                            v-if="!field.type || ['text', 'number', 'url'].includes(field.type)"
                             class="block w-full border border-gray-300 rounded-lg px-4 py-2"
                             :type="field.type || 'text'"
                             :id="fieldName"
@@ -51,13 +51,15 @@
                             @input="didUpdateField(fieldName, $event)"
                         ></v-select>
                         <div v-else-if="field.type === 'tailwindcss'">
-                            <ul>
-                                <li v-for="(tw, twKey) in tailwindOptions" :key="fieldName + '-' + twKey">
-                                    <label :for="fieldName + '-' + twKey">{{ twKey }}</label>
+                            <ul class="grid grid-cols-2 gap-4 mt-4">
+                                <li v-for="(tw, twKey) in filterTailwind(key)" :key="fieldName + '-' + twKey" :class="twKey === 'Custom' ? 'col-span-2' : ''">
+                                    <label class="block text-xs text-gray-600 uppercase mb-1" :for="fieldName + '-' + twKey">{{ twKey }}</label>
                                     <v-select
                                         :multiple="tw.multiple || false"
                                         :taggable="tw.taggable || false"
                                         :options="tw.options"
+                                        :select-on-key-codes="[188, 13, 32]"
+                                        :close-on-select="false"
                                         @input="didUpdateField(fieldName, $event)"
                                     >
                                         <template v-slot:option="option">
@@ -99,8 +101,6 @@ export default {
                 opacities: [0, 5, 10, 20, 25, 30, 40, 50, 60, 70, 75, 80, 90, 95, 100],
                 weights: ['thin', 'extralight', 'light', 'normal', 'medium', 'semibold', 'bold', 'extrabold', 'black'],
                 textSize: ['xs', 'sm', 'md', 'base', 'lg', 'xl', '2xl', '3xl', '4xl', '5xl', '6xl', '7xl', '8xl', '9xl'],
-                heights: ['0', '0.5', '1', '1.5', '2', '2.5', '3', '3.5', '4', '5', '6', '7', '8', '9', '10', '11', '12', '14', '16', '20', '24', '28', '32', '36', '40', '44', '48', '52', '56', '60', '64', '72', '80', '96', 'auto', 'px', '1/2', '1/3', '2/3', '1/4', '2/4', '3/4', '1/5', '2/5', '3/5', '4/5', '1/6', '2/6', '3/6', '4/6', '5/6', 'full', 'screen'],
-                widths: ['0', '0.5', '1', '1.5', '2', '2.5', '3', '3.5', '4', '5', '6', '7', '8', '9', '10', '11', '12', '14', '16', '20', '24', '28', '32', '36', '40', '44', '48', '52', '56', '60', '64', '72', '80', '96', 'auto', 'px', '1/2', '1/3', '2/3', '1/4', '2/4', '3/4', '1/5', '2/5', '3/5', '4/5', '1/6', '2/6', '3/6', '4/6', '5/6', '1/12', '2/12', '3/12', '4/12', '5/12', '6/12', '7/12', '8/12', '9/12', '10/12', '11/12', 'full', 'screen', 'min', 'max'],
                 borderWidths: ['border-0', 'border-2', 'border-4', 'border-8', 'border', 'border-t-0', 'border-r-0', 'border-b-0', 'border-l-0', 'border-t-2', 'border-r-2', 'border-b-2', 'border-l-2', 'border-t-4', 'border-r-4', 'border-b-4', 'border-l-4', 'border-t-8', 'border-r-8', 'border-b-8', 'border-l-8', 'border-t', 'border-r', 'border-b', 'border-l'],
                 sizing: ['-0', '-0.5', '-1', '-1.5', '-2', '-2.5', '-3', '-3.5', '-4', '-5', '-6', '-7', '-8', '-9', '-10', '-11', '-12', '-14', '-16', '-20', '-24', '-28', '-32', '-36', '-40', '-44', '-48', '-52', '-56', '-60', '-64', '-72', '-80', '-96', '-px', 'y-0', 'y-0.5', 'y-1', 'y-1.5', 'y-2', 'y-2.5', 'y-3', 'y-3.5', 'y-4', 'y-5', 'y-6', 'y-7', 'y-8', 'y-9', 'y-10', 'y-11', 'y-12', 'y-14', 'y-16', 'y-20', 'y-24', 'y-28', 'y-32', 'y-36', 'y-40', 'y-44', 'y-48', 'y-52', 'y-56', 'y-60', 'y-64', 'y-72', 'y-80', 'y-96', 'y-px', 'x-0', 'x-0.5', 'x-1', 'x-1.5', 'x-2', 'x-2.5', 'x-3', 'x-3.5', 'x-4', 'x-5', 'x-6', 'x-7', 'x-8', 'x-9', 'x-10', 'x-11', 'x-12', 'x-14', 'x-16', 'x-20', 'x-24', 'x-28', 'x-32', 'x-36', 'x-40', 'x-44', 'x-48', 'x-52', 'x-56', 'x-60', 'x-64', 'x-72', 'x-80', 'x-96', 'x-px', 't-0', 't-0.5', 't-1', 't-1.5', 't-2', 't-2.5', 't-3', 't-3.5', 't-4', 't-5', 't-6', 't-7', 't-8', 't-9', 't-10', 't-11', 't-12', 't-14', 't-16', 't-20', 't-24', 't-28', 't-32', 't-36', 't-40', 't-44', 't-48', 't-52', 't-56', 't-60', 't-64', 't-72', 't-80', 't-96', 't-px', 'r-0', 'r-0.5', 'r-1', 'r-1.5', 'r-2', 'r-2.5', 'r-3', 'r-3.5', 'r-4', 'r-5', 'r-6', 'r-7', 'r-8', 'r-9', 'r-10', 'r-11', 'r-12', 'r-14', 'r-16', 'r-20', 'r-24', 'r-28', 'r-32', 'r-36', 'r-40', 'r-44', 'r-48', 'r-52', 'r-56', 'r-60', 'r-64', 'r-72', 'r-80', 'r-96', 'r-px', 'b-0', 'b-0.5', 'b-1', 'b-1.5', 'b-2', 'b-2.5', 'b-3', 'b-3.5', 'b-4', 'b-5', 'b-6', 'b-7', 'b-8', 'b-9', 'b-10', 'b-11', 'b-12', 'b-14', 'b-16', 'b-20', 'b-24', 'b-28', 'b-32', 'b-36', 'b-40', 'b-44', 'b-48', 'b-52', 'b-56', 'b-60', 'b-64', 'b-72', 'b-80', 'b-96', 'b-px', 'l-0', 'l-0.5', 'l-1', 'l-1.5', 'l-2', 'l-2.5', 'l-3', 'l-3.5', 'l-4', 'l-5', 'l-6', 'l-7', 'l-8', 'l-9', 'l-10', 'l-11', 'l-12', 'l-14', 'l-16', 'l-20', 'l-24', 'l-28', 'l-32', 'l-36', 'l-40', 'l-44', 'l-48', 'l-52', 'l-56', 'l-60', 'l-64', 'l-72', 'l-80', 'l-96', 'l-px']
             },
@@ -264,58 +264,57 @@ export default {
             return {
                 'Text color': {
                     type: 'text',
-                    options: this.colors.map(color => `text-${color}`)
+                    options: this.colors.map(color => `text-${color}`),
+                    visibleOn: ['Title', 'Text', 'Footer']
                 },
                 'Text align': {
-                    options: ['text-left', 'text-center', 'text-right', 'text-justify']
+                    options: ['text-left', 'text-center', 'text-right', 'text-justify'],
+                    visibleOn: ['Title', 'Text', 'Footer']
                 },
                 'Font Weight': {
                     type: 'text',
-                    options: this.tailwind.weights.map(weight => `font-${weight}`)
+                    options: this.tailwind.weights.map(weight => `font-${weight}`),
+                    visibleOn: ['Title', 'Text', 'Footer']
                 },
                 'Font Size': {
                     type: 'text',
-                    options: this.tailwind.textSize.map(size => `text-${size}`)
+                    options: this.tailwind.textSize.map(size => `text-${size}`),
+                    visibleOn: ['Title', 'Text', 'Footer']
                 },
                 'Background color': {
                     type: 'box',
-                    options: this.colors.map(color => `bg-${color}`)
+                    options: this.colors.map(color => `bg-${color}`),
+                    visibleOn: ['Title', 'Text', 'Logo', 'Background', 'Overlay', 'Footer', 'Container']
                 },
                 'Background opacity': {
                     type: 'box',
                     options: this.tailwind.opacities.map(opacity => `bg-opacity-${opacity}`),
-                    render: 'bg-teal-600'
+                    render: 'bg-teal-600',
+                    visibleOn: ['Background']
                 },
                 'Border size': {
                     type: 'box',
                     options: this.tailwind.borderWidths,
                     render: 'border-black',
-                    multiple: true
+                    multiple: true,
+                    visibleOn: ['Title', 'Text', 'Logo', 'Overlay', 'Footer', 'Container']
                 },
                 'Border color': {
                     type: 'box',
-                    options: this.colors.map(color => `bg-${color}`),
-                    render: 'border'
-                },
-                'Width': {
-                    type: 'size',
-                    options: this.tailwind.widths
-                },
-                'Height': {
-                    type: 'size',
-                    options: this.tailwind.heights,
-                },
-                'Font Family': {
-                    options: ['font-sans', 'font-serif', 'font-mono']
+                    options: this.colors.map(color => `border-${color}`),
+                    render: 'border',
+                    visibleOn: ['Title', 'Text', 'Logo', 'Overlay', 'Footer', 'Container']
                 },
                 'Opacity': {
                     type: 'box',
                     options: this.tailwind.opacities.map(opacity => `opacity-${opacity}`),
-                    render: 'bg-teal-600'
+                    render: 'bg-teal-600',
+                    visibleOn: ['Title', 'Text', 'Logo', 'Overlay', 'Footer', 'Container']
                 },
-                'Other': {
+                'Custom': {
                     multiple: true,
-                    taggable: true
+                    taggable: true,
+                    visibleOn: ['Title', 'Text', 'Logo', 'Background', 'Overlay', 'Footer', 'Container']
                 }
             }
         },
@@ -356,6 +355,17 @@ export default {
                 Vue.set(this.customConfig, fieldName, $event)
                 this.notify()
             }
+        },
+        filterTailwind (tab) {
+            const keys = Object.keys(this.tailwindOptions)
+            const tailwind = {}
+            for (const key of keys) {
+                if (this.tailwindOptions[key].visibleOn.includes(tab)) {
+                    tailwind[key] = this.tailwindOptions[key]
+                }
+            }
+
+            return tailwind
         }
     }
 }
