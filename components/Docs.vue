@@ -321,6 +321,20 @@
                                                 None
                                             </td>
                                         </tr>
+                                        <tr class="bg-gray-50">
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                Refresh
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 lg:whitespace-normal">
+                                                From time to time, our little robot does not generate the correct image. To refresh it, just put this parameter to 1 and he will try it again :). Once generated, it will be cached until you refresh it again.
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                String
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                None
+                                            </td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
