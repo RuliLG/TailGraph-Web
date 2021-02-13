@@ -13,6 +13,11 @@ export default {
         content: 'Free API to generate open graph images for social network using the power of TailwindCSS.',
       },
       {
+        hid: 'twitter:card',
+        name: 'twitter:card',
+        content: 'summary'
+      },
+      {
         hid: 'twitter:title',
         name: 'twitter:title',
         content: 'TailGraph | Generate branded social images using TailwindCSS'
