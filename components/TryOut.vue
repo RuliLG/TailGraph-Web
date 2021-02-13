@@ -3,11 +3,11 @@
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
             <h2 class="text-2xl font-bold text-white md:text-4xl" data-aos="fade-down">Try it out</h2>
             <p class="text-lg text-teal-100 mt-4 md:text-xl" data-aos="fade-up">Use our visual editor to create your Open Graph template or, if you feel confident with TailwindCSS, just <a href="#docs" class="underline text-white">go to the docs</a>.</p>
-            <div class="grid grid-cols-2 gap-8 mt-8">
+            <div class="mt-8 md:grid md:grid-cols-2 md:gap-8">
                 <div>
                     <UrlGenerator :config="config" @update="update" />
                 </div>
-                <div v-if="url" class="-mt-8">
+                <div v-if="url" class="md:-mt-8">
                     <div class="sticky top-0 pt-8">
                         <TwitterCard :title="config.title" :description="config.text" :href="url" :imageUrl="url" :new-tab="true" />
                     </div>
@@ -15,7 +15,7 @@
             </div>
             <div v-if="url" class="mt-8">
                 <p class="text-lg text-teal-100 mt-4 md:text-xl">This is the URL we've generated for your image (yeah we know, it's pretty big 😁). Please, feel free to modify your title and text from the URL or, if you want, any TailwindCSS class! :-)</p>
-                <pre class="cursor-pointer mt-4 bg-white bg-opacity-90 border border-white rounded-xl monospace whitespace-pre-wrap p-8" @click="copyToClipboard(url)" v-html="formattedUrl"></pre>
+                <pre class="cursor-pointer mt-4 bg-white bg-opacity-90 border border-white rounded-xl monospace whitespace-pre-wrap break-all p-8" @click="copyToClipboard(url)" v-html="formattedUrl"></pre>
             </div>
         </div>
     </section>

@@ -8,7 +8,7 @@
                 customize your OG image.
             </p>
 
-            <div class="grid grid-cols-2">
+            <div class="lg:grid lg:grid-cols-2">
                 <div>
                     <h3 class="text-xl font-bold mt-16 md:text-3xl" data-aos="fade-down">Layout structure</h3>
                     <p class="text-lg text-gray-600 leading-loose mt-8 md:text-xl" data-aos="fade-up">
@@ -35,21 +35,21 @@
                         </ol>
                     </p>
                 </div>
-                <div class="pt-16" data-aos="fade-up">
-                    <div class="pt-32 sticky top-0">
+                <div class="pt-8 pr-8 md:pt-16 md:pr-0" data-aos="fade-up">
+                    <div class="pt-32 sticky top-0 overflow-hidden lg:overflow-visible">
                         <div class="aspect-w-16 aspect-h-9 text-center">
-                            <div class="absolute left-0 top-0 w-full h-full flex justify-center items-center border border-gray-300 bg-white transform skew-y-12 skew-x-12 -rotate-15 scale-75" ref="background">
+                            <div class="absolute left-0 top-0 w-full h-full flex justify-center items-center border border-gray-300 bg-white transform skew-y-12 skew-x-12 -rotate-15 md:scale-75" ref="background">
                                 <div class="absolute left-0 top-0 p-2 bg-gray-600 text-white text-xs opacity-0 transition duration-500" ref="background-tip">Background</div>
                                 <div class="absolute left-0 top-0 w-full h-full transition duration-500" ref="overlay">
                                     <div class="absolute left-0 top-0 p-2 bg-black text-white text-xs opacity-0 transition duration-500" ref="overlay-tip">Overlay</div>
                                 </div>
-                                <div class="relative p-8 transition duration-500" ref="container">
+                                <div class="relative p-4 md:p-8 transition duration-500" ref="container">
                                     <div class="absolute left-0 top-0 p-2 bg-blue-600 text-white text-xs opacity-0 transition duration-500" ref="container-tip">Container</div>
-                                    <img src="~/assets/logo.svg" alt="TailGraph logo" class="block object-contain object-center h-16 w-auto mx-auto mb-4">
-                                    <h1 class="text-3xl font-bold mb-4">This is the title</h1>
-                                    <p class="text-gray-600">This is the secondary text</p>
+                                    <img src="~/assets/logo.svg" alt="TailGraph logo" class="block object-contain object-center h-6 sm:h-8 md:h-16 w-auto mx-auto md:mb-4">
+                                    <h1 class="text-base sm:text-xl font-bold md:mb-4 md:text-3xl">This is the title</h1>
+                                    <p class="hidden text-gray-600 text-sm sm:block md:text-vase">This is the secondary text</p>
                                 </div>
-                                <p class="block absolute bottom-0 left-0 w-full p-2 text-blue-700 font-semibold transition duration-500" ref="footer">Hey! I am the footer.</p>
+                                <p class="block absolute bottom-0 left-0 w-full p-1 text-blue-700 font-semibold transition duration-500 text-xs sm:text-sm md:text-base md:p-2" ref="footer">Hey! I am the footer.</p>
                             </div>
                         </div>
                     </div>
@@ -58,7 +58,7 @@
             <div>
                 <h3 class="text-xl font-bold mt-16 md:text-3xl" data-aos="fade-down">API Params</h3>
                 <p class="text-lg text-gray-600 leading-loose mt-8 md:text-xl" data-aos="fade-up">
-                    To create your desired Open Graph image, we will accept the following parameters:
+                    To create your desired Open Graph image, we will accept the following parameters on our URL (<strong @click="copyEndpoint()">https://og.tailgraph.com/og</strong>)
                 </p>
 
                 <div class="flex flex-col mt-8">
@@ -333,6 +333,8 @@
 </template>
 
 <script>
+import copy from 'copy-to-clipboard'
+
 export default {
     name: 'docs',
     data () {
@@ -368,6 +370,11 @@ export default {
                     this.$refs[key + '-tip'].classList.toggle('opacity-0')
                 }
             }
+        },
+        copyEndpoint () {
+            copy('https://og.tailgraph.com/og')
+            const event = new CustomEvent('toast', { detail: 'Endpoint was copied to your clipboard.' })
+            document.dispatchEvent(event)
         }
     }
 }

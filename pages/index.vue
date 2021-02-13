@@ -10,6 +10,8 @@
     </section>
     <TryOut />
     <Docs />
+    <Faq />
+    <Footer />
   </div>
 </template>
 
@@ -18,6 +20,8 @@ import Banner from '../components/Banner'
 import ToastController from '../components/ToastController'
 import TryOut from '../components/TryOut'
 import Docs from '../components/Docs'
+import Faq from '../components/Faq'
+import Footer from '../components/Footer'
 
 export default {
   name: 'index',
@@ -25,7 +29,9 @@ export default {
     Banner,
     TryOut,
     ToastController,
-    Docs
+    Docs,
+    Faq,
+    Footer
   }
 }
 </script>
