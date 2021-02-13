@@ -65,7 +65,7 @@ export default {
       { rel: 'canonical', href: 'https://tailgraph.com/' }
     ],
     script: [
-      { src: 'https://cdn.usefathom.com/script.js', 'data-site': 'FYNLBUNB', defer: true }
+      { src: 'https://ferret.tailgraph.com/script.js', 'data-site': 'FYNLBUNB', defer: true }
     ],
     htmlAttrs: {
       lang: 'en'
