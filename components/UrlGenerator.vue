@@ -257,7 +257,6 @@ export default {
             }
 
             qs.push('t=' + Date.now())
-            qs.push('refresh=1')
 
             return base + '?' + qs.join('&')
         },
