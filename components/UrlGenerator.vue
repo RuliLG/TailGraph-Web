@@ -93,6 +93,28 @@ export default {
         this.notify()
     },
     data () {
+        const fonts = [
+            'Abel',
+            'Bebas Neue',
+            'Benne',
+            'Bitter',
+            'Brygada 1918',
+            'Dancing Script',
+            'Dosis',
+            'Inter',
+            'Josefin Sans',
+            'Montserrat',
+            'Newsreader',
+            'Open Sans',
+            'Oswald',
+            'Oxygen',
+            'Poppins',
+            'Raleway',
+            'Roboto',
+            'Roboto Condensed',
+            'Roboto Mono',
+            'Source Sans Pro',
+        ]
         return {
             customConfig: JSON.parse(JSON.stringify(this.config)),
             tailwind: {
@@ -121,7 +143,7 @@ export default {
                             help: 'You can use any name from Google Fonts, but we\'ve only added a few to this list :-)',
                             type: 'select',
                             required: false,
-                            options: ['Roboto', 'Montserrat']
+                            options: fonts
                         }
                     }
                 },
@@ -136,7 +158,7 @@ export default {
                             help: 'You can use any name from Google Fonts, but we\'ve only added a few to this list :-). This value will override the global font family.',
                             type: 'select',
                             required: false,
-                            options: ['Roboto', 'Montserrat']
+                            options: fonts
                         },
                         titleTailwind: {
                             name: 'TailwindCSS',
@@ -156,7 +178,7 @@ export default {
                             help: 'You can use any name from Google Fonts, but we\'ve only added a few to this list :-). This value will override the global font family.',
                             type: 'select',
                             required: false,
-                            options: ['Roboto', 'Montserrat']
+                            options: fonts
                         },
                         textTailwind: {
                             name: 'TailwindCSS',
@@ -336,6 +358,10 @@ export default {
         modify (key, value) {
             if (key === 'baseFontSize') {
                 return value ? value * 2 : undefined
+            }
+
+            if (key.toLowerCase().endsWith('fontfamily')) {
+                return value ? value.replace(/([\s]+)/g, '+') : undefined
             }
 
             return value
