@@ -46,7 +46,7 @@
                                 <div class="relative p-4 md:p-8 transition duration-500" ref="container">
                                     <div class="absolute left-0 top-0 p-2 bg-blue-600 text-white text-xs opacity-0 transition duration-500" ref="container-tip">Container</div>
                                     <img src="~/assets/logo.svg" alt="TailGraph logo" class="block object-contain object-center h-6 sm:h-8 md:h-16 w-auto mx-auto md:mb-4">
-                                    <h1 class="text-base sm:text-xl font-bold md:mb-4 md:text-3xl">This is the title</h1>
+                                    <p class="text-base sm:text-xl font-bold md:mb-4 md:text-3xl">This is the title</p>
                                     <p class="hidden text-gray-600 text-sm sm:block md:text-vase">This is the secondary text</p>
                                 </div>
                                 <p class="block absolute bottom-0 left-0 w-full p-1 text-blue-700 font-semibold transition duration-500 text-xs sm:text-sm md:text-base md:p-2" ref="footer">Hey! I am the footer.</p>
