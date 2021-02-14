@@ -5,6 +5,7 @@
                 <img
                     alt="Generated OG image"
                     class="absolute left-0 top-0 w-full h-full object-cover object-center transition duration-50"
+                    loading="lazy"
                     :src="imageUrl"
                     :class="{
                         'opacity-0': loading,
