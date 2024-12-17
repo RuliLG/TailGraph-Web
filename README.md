@@ -1,21 +1,15 @@
-# Nuxt.js Example
+# Tailgraph
 
-This directory is a brief example of a [Nuxt.js](https://nuxtjs.org) app that can be deployed with Vercel and zero configuration.
+Tailgraph is a website that allows you to create social media images using just TailwindCSS.
 
-## Deploy Your Own
+## Borah Digital Labs
+[Borah Digital Labs](https://borah.digital/) crafts web applications, open-source packages, and offers a team of full-stack solvers ready to tackle your next project. We have built a series of projects:
 
-Deploy your own Nuxt.js project with Vercel.
+- [CodeDocumentation](https://codedocumentation.app/): Automatic code documentation platform
+- [AutomaticDocs](https://automaticdocs.app/): One-time documentation for your projects
+- [Talkzy](https://talkzy.app/): A tool to summarize meetings
+- Compass: An agent-driven tool to help manage companies more efficiently
+- [Prompt Token Counter](https://prompttokencounter.com/): Simple tool to count tokens in prompts
+- [Sabor en la Oficina](https://saborenlaoficina.es/): Website + catering management platform
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/import/project?template=https://github.com/vercel/vercel/tree/master/examples/nuxtjs)
-
-_Live Example: https://nuxtjs.now-examples.now.sh_
-
-### How We Created This Example
-
-To get started with Nuxt.js deployed with Vercel, you can use the [Create-Nuxt-App CLI](https://www.npmjs.com/package/create-nuxt-app) to initialize the project:
-
-```shell
-$ npx create-nuxt-app my-app
-```
-
-> The only change made is to amend the output directory in `nuxt.config.js` to `"/public"`.
+We like to use Laravel for most of our projects and we love to tackle big, complicated problems. Feel free to reach out and we can have a virtual coffee!
